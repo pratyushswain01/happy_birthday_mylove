@@ -705,37 +705,37 @@ body{
 //  ► SET YOUR TARGET DATE ◄
 //  new Date(YEAR, MONTH-1, DAY, HOUR, MIN, SEC)
 // ════════════════════════════
-const _n = new Date();
-const TARGET = new Date(_n.getFullYear(), _n.getMonth(), _n.getDate()+1, 0, 0, 0);
+// ════════════════════════════
+//  ► FIXED TARGET DATE ◄
+//  13 March 2026 – 00:00:00
 // ════════════════════════════
 
-const TOTAL_MS = TARGET - new Date();
+const TARGET = new Date(2026, 2, 13, 0, 0, 0); 
+// Month = 2 because March = 2 in JavaScript (0-indexed)
+
 let done = false;
-let themeIdx = 1;
 
-
-// ── COUNTDOWN TIMER ──
 const timer = setInterval(() => {
 
-  if (done) return;   // stop running if finished
+  if(done) return;
 
   const now = new Date();
   let diff = TARGET - now;
 
-  // when midnight reached
-  if (diff <= 0) {
-    diff = 0;
-    done = true;
-    clearInterval(timer);   // ⛔ stops countdown permanently
+  if(diff <= 0){
+      diff = 0;
+      done = true;
+      clearInterval(timer);   // stops permanently
   }
 
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  const days = Math.floor(diff / (1000*60*60*24));
+  const hours = Math.floor((diff / (1000*60*60)) % 24);
+  const mins = Math.floor((diff / (1000*60)) % 60);
+  const secs = Math.floor((diff / 1000) % 60);
 
-  console.log(hours + ":" + minutes + ":" + seconds);
+  console.log(days, hours, mins, secs);
 
-}, 1000);
+},1000);
 
 // ── DYNAMIC THEME SYSTEM ──
 const THEMES = [null,'t1','t2','t3','t4','t5'];
